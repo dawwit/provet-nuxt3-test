@@ -6,6 +6,7 @@ import '@provetcloud/web-components/lib/Tooltip'
 import '@provetcloud/web-components/lib/Icon'
 import '@provetcloud/web-components/lib/Card'
 import '@provetcloud/web-components/lib/Checkbox'
+
 const passwordVisible = ref(false)
 
 const email = ref('')
@@ -31,10 +32,21 @@ const validatePassword = () => {
     }
 }
 
+const navigateToSuccess = () => {
+    navigateTo('/success')
+}
+
 const validate = () => {
     validateEmail()
     validatePassword()
+
+    if (emailError.value || passwordError.value) {
+        return
+    }
+
+    navigateToSuccess();
 }
+
 </script>
 
 <template>
