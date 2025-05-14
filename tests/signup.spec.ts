@@ -18,31 +18,134 @@ test.describe('Sign Up Form functionality', () => {
     await expect(page.getByText('Password is required')).toBeVisible();
   });
 
-  test('should allow toggling password visibility when clicking the visibility icon', async ({
-    page,
-  }) => {
-    // Given: The user has entered a password
-    await page.getByLabel('Password').fill('test123');
-    const passwordInput = page.getByLabel('Password');
-    await expect(passwordInput).toHaveAttribute('type', 'password');
+  test('should validate email format', async ({ page }) => {
+    // Given: The user is on the sign up form page
+    // When: The user enters an invalid email and moves to the next field
+    await page.getByLabel('Email').fill('invalid-email');
+    await page.getByLabel('Password').click(); // Blur from email field
 
-    // When: The user clicks the visibility toggle button
-    await page
-      .getByRole('button', { name: '' })
-      .filter({ has: page.locator('provet-icon') })
-      .click();
+    // Then: Email validation error should be displayed
+    await expect(page.getByText('Please enter a valid email address')).toBeVisible();
 
-    // Then: The password should become visible
-    await expect(passwordInput).toHaveAttribute('type', 'text');
+    // When: The user corrects the email
+    await page.getByLabel('Email').fill('valid@example.com');
+    await page.getByLabel('Password').click(); // Blur from email field
 
-    // When: The user clicks the visibility toggle button again
-    await page
-      .getByRole('button', { name: '' })
-      .filter({ has: page.locator('provet-icon') })
-      .click();
+    // Then: Email validation error should disappear
+    await expect(page.getByText('Please enter a valid email address')).not.toBeVisible();
+  });
 
-    // Then: The password should be hidden again
-    await expect(passwordInput).toHaveAttribute('type', 'password');
+  test('should validate password length', async ({ page }) => {
+    // Given: The user is on the sign up form page
+
+    // When: The user enters a short password and moves to the next field
+    await page.getByLabel('Password').fill('short');
+    await page.getByLabel('Email').click(); // Blur from password field
+
+    // Then: Password length error should be displayed
+    await expect(page.getByText('Password must be at least 6 characters long')).toBeVisible();
+
+    // When: The user enters a longer password (but still missing requirements)
+    await page.getByLabel('Password').fill('longpassword');
+    await page.getByLabel('Email').click(); // Blur from password field
+
+    // Then: Password length error should disappear but other password requirements error should appear
+    await expect(page.getByText('Password must be at least 6 characters long')).not.toBeVisible();
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).toBeVisible();
+  });
+
+  test('should validate password complexity requirements', async ({ page }) => {
+    // Given: The user is on the sign up form page
+
+    // When: Password is missing uppercase letter
+    await page.getByLabel('Password').fill('password123!');
+    await page.getByLabel('Email').click();
+
+    // Then: Password requirements error should be displayed
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).toBeVisible();
+
+    // When: Password is missing lowercase letter
+    await page.getByLabel('Password').fill('PASSWORD123!');
+    await page.getByLabel('Email').click();
+
+    // Then: Password requirements error should still be displayed
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).toBeVisible();
+
+    // When: Password is missing number
+    await page.getByLabel('Password').fill('Password!');
+    await page.getByLabel('Email').click();
+
+    // Then: Password requirements error should still be displayed
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).toBeVisible();
+
+    // When: Password is missing special character
+    await page.getByLabel('Password').fill('Password123');
+    await page.getByLabel('Email').click();
+
+    // Then: Password requirements error should still be displayed
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).toBeVisible();
+
+    // When: Password meets all requirements
+    await page.getByLabel('Password').fill('Password123!');
+    await page.getByLabel('Email').click();
+
+    // Then: Password requirements error should disappear
+    await expect(
+      page.getByText(
+        'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
+    ).not.toBeVisible();
+  });
+
+  test('should change password visibility when clicking the toggle button', async ({ page }) => {
+    // Given: The user is on the sign up form
+    await page.goto('/');
+
+    // Fill the password field
+    await page.getByLabel('Password').fill('ValidP@ssword123');
+
+    // Check initial type
+    const inputSelector = 'input[name="password"]';
+    await expect(page.locator(inputSelector)).toHaveAttribute('type', 'password');
+
+    // When: Toggle password visibility
+    const toggleButton = page.locator('provet-input[label="Password"] provet-button');
+    await toggleButton.click();
+
+    // Small wait for state to update
+    await page.waitForTimeout(100);
+
+    // Then: Password input type should change to text
+    await expect(page.locator(inputSelector)).toHaveAttribute('type', 'text');
+
+    // When: Toggle back
+    await toggleButton.click();
+
+    // Small wait for state to update
+    await page.waitForTimeout(100);
+
+    // Then: Password input type should change back to password
+    await expect(page.locator(inputSelector)).toHaveAttribute('type', 'password');
   });
 
   test('should allow users to opt-in for product updates by checking the newsletter option', async ({
@@ -61,12 +164,26 @@ test.describe('Sign Up Form functionality', () => {
     await expect(checkbox).toBeChecked();
   });
 
+  test('should not redirect to success page if form is invalid', async ({ page }) => {
+    // Given: The user has filled in invalid information
+    await page.getByLabel('Email').fill('invalid-email');
+    await page.getByLabel('Password').fill('short');
+
+    // When: The user submits the form
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+
+    // Then: The user should not be redirected and validation errors should be displayed
+    await expect(page).not.toHaveURL('/success');
+    await expect(page.getByText('Please enter a valid email address')).toBeVisible();
+    await expect(page.getByText('Password must be at least 6 characters long')).toBeVisible();
+  });
+
   test('should redirect to success page after submitting valid registration information', async ({
     page,
   }) => {
     // Given: The user has filled in all required fields with valid data
     await page.getByLabel('Email').fill('test@example.com');
-    await page.getByLabel('Password').fill('password123');
+    await page.getByLabel('Password').fill('ValidP@ssw0rd');
     await page.getByLabel('I want to receive occasional product updates and announcements').check();
 
     // When: The user submits the form
