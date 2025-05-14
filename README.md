@@ -82,6 +82,20 @@ npm run test:ui
 npm run test:headed
 ```
 
+### Continuous Integration
+
+The project uses GitHub Actions for automated testing. The workflow runs all E2E tests on every push to the main branch and on pull requests.
+
+The CI workflow:
+
+- Sets up Node.js environment
+- Installs dependencies
+- Sets up Playwright
+- Runs all E2E tests
+- Uploads test results as artifacts
+
+You can also manually trigger the workflow from the "Actions" tab in the GitHub repository.
+
 ## Project Structure
 
 ```
