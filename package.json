@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .js,.ts,.vue .",
-    "lint:fix": "eslint --ext .js,.ts,.vue . --fix"
+    "lint:fix": "eslint --ext .js,.ts,.vue . --fix",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@provetcloud/css": "^1.1.0",
@@ -24,6 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^8.57.1",
-    "eslint-plugin-vue": "^10.1.0"
+    "eslint-plugin-vue": "^10.1.0",
+    "vue-tsc": "^2.0.7"
   }
 }
