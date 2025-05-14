@@ -1,5 +1,15 @@
 <template>
-    <div class="provet-container">
+    <main class="n-stack-horizontal">
         <slot />
-    </div>
+    </main>
 </template>
+
+<style>
+html, body {
+    background: var(--n-color-surface-raised);
+}
+
+html, body, #__nuxt[data-v-app], main {
+    block-size: 100%;
+}
+</style>
