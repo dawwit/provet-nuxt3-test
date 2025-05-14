@@ -1,4 +1,3 @@
 <template>
-    <SignUpSuccess />
+  <SignUpSuccess />
 </template>
-

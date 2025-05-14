@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --ext .js,.ts,.vue . --fix",
+    "format": "prettier --write \"**/*.{js,ts,vue,css,scss,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,vue,css,scss,json,md}\"",
     "type-check": "vue-tsc --noEmit",
     "prepare": "husky"
   },
@@ -26,15 +28,22 @@
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-vue": "^10.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.0",
+    "prettier": "^3.5.3",
     "vue-tsc": "^2.0.7"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
+      "prettier --write",
       "eslint --fix",
       "vue-tsc --noEmit"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write"
     ]
   }
 }

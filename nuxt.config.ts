@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
   vue: {
     compilerOptions: {
-      isCustomElement: (tag) => tag.startsWith('provet-'),
+      isCustomElement: tag => tag.startsWith('provet-'),
     },
   },
 

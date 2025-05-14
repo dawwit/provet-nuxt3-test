@@ -10,20 +10,19 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "vue"
-  ],
+  "plugins": ["@typescript-eslint", "vue", "prettier"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:vue/base"
+    "plugin:vue/base",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "no-console": "warn",
     "no-debugger": "warn",
     "no-unused-vars": "warn",
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "prettier/prettier": "error"
   },
   "globals": {
     "ref": "readonly",
@@ -37,4 +36,4 @@
     "useRoute": "readonly",
     "useRouter": "readonly"
   }
-} 
+}

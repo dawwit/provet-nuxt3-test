@@ -27,11 +27,12 @@ This project demonstrates a clean implementation of a sign-up form using Nuxt 3 
 ### Prerequisites
 
 - Node.js (v22 or higher recommended)
-- npm 
+- npm
 
 ### Installation
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -78,6 +79,7 @@ provet/
 ## Commit History
 
 The project was developed with the following major milestones:
+
 1. Initial Nuxt project setup
 2. Integration of ProVet Cloud components and basic form setup
 3. Implementation of sign-up form functionality
