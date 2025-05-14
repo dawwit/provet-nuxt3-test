@@ -10,8 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@provetcloud/css": "^1.1.0",
+    "@provetcloud/web-components": "^1.4.0",
     "nuxt": "^3.17.3",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@provetcloud/web-components-vue-types": "^1.4.0"
   }
 }

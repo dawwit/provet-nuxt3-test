@@ -1,6 +1,9 @@
+<script setup lang="ts">
+import '@provetcloud/css'
+</script>
+
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+    <NuxtLayout>
+        <NuxtPage />
+    </NuxtLayout>
 </template>
