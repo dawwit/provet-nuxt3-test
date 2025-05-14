@@ -1,51 +1,51 @@
 <script setup lang="ts">
-import '@provetcloud/web-components/lib/Input'
-import '@provetcloud/web-components/lib/Button'
-import '@provetcloud/web-components/lib/Stack'
-import '@provetcloud/web-components/lib/Tooltip'
-import '@provetcloud/web-components/lib/Icon'
-import '@provetcloud/web-components/lib/Card'
-import '@provetcloud/web-components/lib/Checkbox'
+import '@provetcloud/web-components/lib/Input';
+import '@provetcloud/web-components/lib/Button';
+import '@provetcloud/web-components/lib/Stack';
+import '@provetcloud/web-components/lib/Tooltip';
+import '@provetcloud/web-components/lib/Icon';
+import '@provetcloud/web-components/lib/Card';
+import '@provetcloud/web-components/lib/Checkbox';
 
-const passwordVisible = ref(false)
+const passwordVisible = ref(false);
 
-const email = ref('')
-const password = ref('')
-const checkbox = ref(false)
+const email = ref('');
+const password = ref('');
+const checkbox = ref(false);
 
-const emailError = ref<string | undefined>(undefined)
-const passwordError = ref<string | undefined>(undefined)
+const emailError = ref<string | undefined>(undefined);
+const passwordError = ref<string | undefined>(undefined);
 
 const validateEmail = () => {
     emailError.value = undefined;
 
     if (!email.value) {
-        emailError.value = 'Email is required'
+        emailError.value = 'Email is required';
     }
-}
+};
 
 const validatePassword = () => {
     passwordError.value = undefined;
 
     if (!password.value) {
-        passwordError.value = 'Password is required'
+        passwordError.value = 'Password is required';
     }
-}
+};
 
 const navigateToSuccess = () => {
-    navigateTo('/success')
-}
+    navigateTo('/success');
+};
 
 const validate = () => {
-    validateEmail()
-    validatePassword()
+    validateEmail();
+    validatePassword();
 
     if (emailError.value || passwordError.value) {
-        return
+        return;
     }
 
     navigateToSuccess();
-}
+};
 
 </script>
 

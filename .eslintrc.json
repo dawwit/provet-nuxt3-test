@@ -1,0 +1,40 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "vue"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/base"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-unused-vars": "warn",
+    "semi": ["error", "always"]
+  },
+  "globals": {
+    "ref": "readonly",
+    "reactive": "readonly",
+    "computed": "readonly",
+    "watch": "readonly",
+    "onMounted": "readonly",
+    "navigateTo": "readonly",
+    "defineProps": "readonly",
+    "defineEmits": "readonly",
+    "useRoute": "readonly",
+    "useRouter": "readonly"
+  }
+} 

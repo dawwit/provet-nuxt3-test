@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '@provetcloud/css'
+import '@provetcloud/css';
 </script>
 
 <template>

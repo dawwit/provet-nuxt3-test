@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint:fix": "eslint --ext .js,.ts,.vue . --fix"
   },
   "dependencies": {
     "@provetcloud/css": "^1.1.0",
@@ -17,6 +19,11 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@provetcloud/web-components-vue-types": "^1.4.0"
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@provetcloud/web-components-vue-types": "^1.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^10.1.0"
   }
 }
